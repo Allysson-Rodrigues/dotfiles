@@ -1,4 +1,4 @@
-# --- ZINIT (MANTER NO TOPO) ---
+# --- ZINIT PACKAGE MANAGER (KEEP AT TOP) ---
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
   print -P "%F{33}%F{220}Installing %F{33}Zinit%F{220}...%f"
   command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
@@ -9,13 +9,12 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-# --- FIM ZINIT ---
 
-# --- OH MY ZSH ---
+# --- OH MY ZSH CORE ---
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
-# ⚠️ IMPORTANTE: plugins do Oh My Zsh devem ficar ANTES do source
+# IMPORTANT: Plugins must be defined BEFORE sourcing oh-my-zsh.sh
 plugins=(
   git
   z
@@ -27,71 +26,64 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# --- SPACESHIP (CONFIG LEVE) ---
+# --- SPACESHIP PROMPT CONFIGURATION ---
 SPACESHIP_PROMPT_ORDER=(
-  user
-  dir
-  host
-  git
-  node
-  exec_time
-  line_sep
-  jobs
-  exit_code
-  char
+  user dir host git node exec_time line_sep jobs exit_code char
 )
-
 SPACESHIP_USER_SHOW=always
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
-
 SPACESHIP_NODE_SHOW=true
 SPACESHIP_GIT_SHOW=true
 
-# --- PLUGINS VIA ZINIT (RÁPIDOS) ---
+# --- ASYNC PLUGINS VIA ZINIT ---
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
-# --- ALIASES: NAVEGAÇÃO & SISTEMA ---
+# --- NAVIGATION & SYSTEM ALIASES ---
 alias ..='cd ..'
 alias ...='cd ../..'
-alias cls='clear'  # Estilo Windows no Linux
+alias cls='clear'      # Windows-style clear command
 alias zshconfig='code ~/.zshrc'
 alias zshreload='source ~/.zshrc'
 
-# --- ALIASES: GIT (MAIS AGRESSIVOS) ---
+# Professional Navigation Aliases
+# NOTE: Update paths below by running 'pwd' inside your project folders
+alias projects='cd /home/allys/projetos'
+alias template='cd /home/allys/projetos/node-express-template'
+
+# --- ENHANCED GIT WORKFLOW ---
 alias g='git'
 alias gs='git status'
 alias ga='git add .'
-alias gc='git commit -m'      # Ex: gc "feat: add express routes"
+alias gc='git commit -m'
 alias gp='git push'
 alias gl='git log --oneline --graph --all -n 10'
 alias gco='git checkout'
 alias gb='git branch'
 
-# --- ALIASES: NODE & NPM (ISSUE #1) ---
+# --- NODE.JS & NPM TOOLING ---
 alias ni='npm install'
 alias nr='npm run'
-alias dev='npm run dev'       # Para rodar o nodemon direto
+alias dev='npm run dev'   # Start development server (nodemon)
 alias start='npm start'
 
-# --- ALIASES: DOCKER (ISSUE #3) ---
+# --- DOCKER MANAGEMENT ---
 alias d='docker'
 alias dc='docker-compose'
 alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias dimgs='docker images'
-alias dstop='docker stop $(docker ps -q)' # Para tudo de uma vez
+alias dstop='docker stop $(docker ps -q)'
 
-# --- ALIASES: UTILITÁRIOS JÁ EXISTENTES ---
+# --- UTILITY ALIASES ---
 alias faxina="~/scripts/cleanup.sh"
 alias gwatch='gh run watch'
 alias gcheck='gh run list'
 alias gview='gh run view --log'
 
-
-
+# --- ENVIRONMENT LOADERS ---
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
