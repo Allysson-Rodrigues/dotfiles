@@ -63,6 +63,10 @@ alias gp='git push'
 alias gl='git log --oneline --graph --all -n 10'
 alias gco='git checkout'
 alias gb='git branch'
+alias gpl='git pull origin main'
+alias gcm='git commit -m'
+alias gst='git stash'
+alias gpop='git stash pop'
 
 # --- NODE.JS & NPM TOOLING ---
 alias ni='npm install'
