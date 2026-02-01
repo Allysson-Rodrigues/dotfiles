@@ -89,6 +89,7 @@ alias dcr='docker-compose restart'   # Reinicia os containers
 alias dcs='docker-compose stop'      # Apenas pausa os containers
 alias dcb='docker-compose up -d --build' # Reconstrói e sobe (útil se mudar o código) 
 
+
 # --- UTILITY ALIASES ---
 alias faxina="~/scripts/cleanup.sh"
 alias gwatch='gh run watch'
