@@ -87,6 +87,15 @@ alias gwatch='gh run watch'
 alias gcheck='gh run list'
 alias gview='gh run view --log'
 
+# --- Docker Compose Aliases ---
+alias dcu='docker-compose up -d'      # Sobe tudo em segundo plano
+alias dcd='docker-compose down'      # Para e remove tudo (limpa a porta 5000)
+alias dcl='docker-compose logs -f'   # Mostra os logs em tempo real
+alias dcr='docker-compose restart'   # Reinicia os containers
+alias dcs='docker-compose stop'      # Apenas pausa os containers
+alias dcb='docker-compose up -d --build' # Reconstrói e sobe (útil se mudar o código) 
+
+
 # --- ENVIRONMENT LOADERS ---
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
