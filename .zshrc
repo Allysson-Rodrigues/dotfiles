@@ -81,6 +81,14 @@ alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}
 alias dimgs='docker images'
 alias dstop='docker stop $(docker ps -q)'
 
+# --- Docker Compose Aliases ---
+alias dcu='docker-compose up -d'      # Sobe tudo em segundo plano
+alias dcd='docker-compose down'      # Para e remove tudo (limpa a porta 5000)
+alias dcl='docker-compose logs -f'   # Mostra os logs em tempo real
+alias dcr='docker-compose restart'   # Reinicia os containers
+alias dcs='docker-compose stop'      # Apenas pausa os containers
+alias dcb='docker-compose up -d --build' # Reconstrói e sobe (útil se mudar o código) 
+
 # --- UTILITY ALIASES ---
 alias faxina="~/scripts/cleanup.sh"
 alias gwatch='gh run watch'
