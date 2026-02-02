@@ -29,9 +29,6 @@ SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_NODE_SHOW=true
 SPACESHIP_GIT_SHOW=true
-
-# Otimização de performance: Não tenta ler a versão do pacote no package.json
-# Isso evita lentidão em pastas node_modules gigantes
 SPACESHIP_PACKAGE_SHOW=false
 
 # --- ASYNC PLUGINS & TOOLS VIA ZINIT ---
@@ -77,7 +74,6 @@ alias t='npm test'
 alias nuke-modules='find . -name "node_modules" -type d -prune -exec rm -rf "{}" +'
 
 # --- NODE.JS DEEP CLEAN ---
-# Deleta node_modules, o lock file e instala tudo do zero (resolve 99% dos bugs estranhos)
 alias node-reset='rm -rf node_modules package-lock.json && npm install'
 
 # --- DOCKER MANAGEMENT ---
@@ -96,15 +92,11 @@ alias dcs='docker-compose stop'
 alias dcb='docker-compose up -d --build'
 
 # --- DOCKER POWER USER ---
-# Remove ABSOLUTAMENTE tudo o que não está sendo usado (limpa gigabytes de disco)
 alias d-clean='docker system prune -a --volumes'
-# Entra dentro de um container que está rodando (substitua <nome> na hora)
 alias d-shell='docker exec -it'
 
 # --- DIAGNÓSTICO DE REDE (Útil para APIs) ---
-# Mostra qual processo está travando uma porta (ex: porta 5000 ocupada)
 alias ports='sudo lsof -i -P -n | grep LISTEN'
-# Pega o seu IP interno do WSL (necessário para conectar o celular na API)
 alias myip="hostname -I | awk '{print \$1}'"
 
 # --- UTILITY ALIASES ---
