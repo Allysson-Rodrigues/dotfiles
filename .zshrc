@@ -14,15 +14,8 @@ autoload -Uz _zinit
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
-# IMPORTANT: Plugins must be defined BEFORE sourcing oh-my-zsh.sh
-plugins=(
-  git
-  z
-  node
-  npm
-  docker
-  docker-compose
-)
+# Plugins do Oh My Zsh (nativos)
+plugins=(git z node npm docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -37,20 +30,28 @@ SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_NODE_SHOW=true
 SPACESHIP_GIT_SHOW=true
 
-# --- ASYNC PLUGINS VIA ZINIT ---
+# Otimização de performance: Não tenta ler a versão do pacote no package.json
+# Isso evita lentidão em pastas node_modules gigantes
+SPACESHIP_PACKAGE_SHOW=false
+
+# --- ASYNC PLUGINS & TOOLS VIA ZINIT ---
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
+# Carregamento Otimizado do NVM (Lazy Load)
+zinit ice wait"0" lucid nocompletions
+zinit light lukechilds/zsh-nvm
+export ZSH_NVM_AUTOLOAD=true
+
 # --- NAVIGATION & SYSTEM ALIASES ---
 alias ..='cd ..'
 alias ...='cd ../..'
-alias cls='clear'      # Windows-style clear command
+alias cls='clear'
 alias zshconfig='code ~/.zshrc'
 alias zshreload='source ~/.zshrc'
 
-# Professional Navigation Aliases
-# NOTE: Update paths below by running 'pwd' inside your project folders
+# Professional Navigation
 alias projects='cd /home/allys/projetos'
 alias template='cd /home/allys/projetos/node-express-template'
 
@@ -64,15 +65,20 @@ alias gl='git log --oneline --graph --all -n 10'
 alias gco='git checkout'
 alias gb='git branch'
 alias gpl='git pull origin main'
-alias gcm='git commit -m'
 alias gst='git stash'
 alias gpop='git stash pop'
 
 # --- NODE.JS & NPM TOOLING ---
 alias ni='npm install'
 alias nr='npm run'
-alias dev='npm run dev'   # Start development server (nodemon)
+alias dev='npm run dev'
 alias start='npm start'
+alias t='npm test'
+alias nuke-modules='find . -name "node_modules" -type d -prune -exec rm -rf "{}" +'
+
+# --- NODE.JS DEEP CLEAN ---
+# Deleta node_modules, o lock file e instala tudo do zero (resolve 99% dos bugs estranhos)
+alias node-reset='rm -rf node_modules package-lock.json && npm install'
 
 # --- DOCKER MANAGEMENT ---
 alias d='docker'
@@ -81,31 +87,28 @@ alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}
 alias dimgs='docker images'
 alias dstop='docker stop $(docker ps -q)'
 
-# --- Docker Compose Aliases ---
-alias dcu='docker-compose up -d'      # Sobe tudo em segundo plano
-alias dcd='docker-compose down'      # Para e remove tudo (limpa a porta 5000)
-alias dcl='docker-compose logs -f'   # Mostra os logs em tempo real
-alias dcr='docker-compose restart'   # Reinicia os containers
-alias dcs='docker-compose stop'      # Apenas pausa os containers
-alias dcb='docker-compose up -d --build' # Reconstrói e sobe (útil se mudar o código) 
+# Docker Compose Workflow
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+alias dcl='docker-compose logs -f'
+alias dcr='docker-compose restart'
+alias dcs='docker-compose stop'
+alias dcb='docker-compose up -d --build'
 
+# --- DOCKER POWER USER ---
+# Remove ABSOLUTAMENTE tudo o que não está sendo usado (limpa gigabytes de disco)
+alias d-clean='docker system prune -a --volumes'
+# Entra dentro de um container que está rodando (substitua <nome> na hora)
+alias d-shell='docker exec -it'
+
+# --- DIAGNÓSTICO DE REDE (Útil para APIs) ---
+# Mostra qual processo está travando uma porta (ex: porta 5000 ocupada)
+alias ports='sudo lsof -i -P -n | grep LISTEN'
+# Pega o seu IP interno do WSL (necessário para conectar o celular na API)
+alias myip="hostname -I | awk '{print \$1}'"
 
 # --- UTILITY ALIASES ---
 alias faxina="~/scripts/cleanup.sh"
 alias gwatch='gh run watch'
 alias gcheck='gh run list'
 alias gview='gh run view --log'
-
-# --- Docker Compose Aliases ---
-alias dcu='docker-compose up -d'      # Sobe tudo em segundo plano
-alias dcd='docker-compose down'      # Para e remove tudo (limpa a porta 5000)
-alias dcl='docker-compose logs -f'   # Mostra os logs em tempo real
-alias dcr='docker-compose restart'   # Reinicia os containers
-alias dcs='docker-compose stop'      # Apenas pausa os containers
-alias dcb='docker-compose up -d --build' # Reconstrói e sobe (útil se mudar o código) 
-
-
-# --- ENVIRONMENT LOADERS ---
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
