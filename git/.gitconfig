@@ -1,0 +1,27 @@
+[user]
+	name = Allysson Rodrigues
+	email = alissonrodriig@gmail.com
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[fetch]
+	prune = true
+[core]
+	editor = code --wait
+	autocrlf = false
+	excludesfile = /home/allys/.gitignore_global
+	eol = lf
+[alias]
+	st = status -sb
+	lg = log --oneline --graph --decorate --all
+	co = checkout
+	br = branch
+[color]
+	ui = auto
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
