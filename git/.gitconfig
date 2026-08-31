@@ -1,0 +1,42 @@
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[core]
+	editor = code --wait
+	pager = delta
+[user]
+	name = Allysson Rodrigues
+	email = 35181481+Allysson-Rodrigues@users.noreply.github.com
+	signingkey = /home/allyssonrodrigues/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	dark = true
+	hyperlinks = true
+	hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+	wrap-max-lines = 5
+	file-style = "bold yellow ul"
+	hunk-header-decoration-style = "blue box"
+[interactive]
+	diffFilter = delta --color-only
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/allyssonrodrigues/.local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/allyssonrodrigues/.local/bin/gh auth git-credential
+[gpg "ssh"]
+	allowedSignersFile = /home/allyssonrodrigues/.ssh/allowed_signers

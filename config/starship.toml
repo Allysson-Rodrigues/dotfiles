@@ -1,0 +1,108 @@
+# ==============================================================================
+# Starship Configuration: Pastel Gradient Pill Prompt (Single-Line Capsule)
+# ==============================================================================
+
+add_newline = true
+command_timeout = 750
+
+format = """
+[](#ff9aa2)\
+$os\
+$username\
+[](bg:#ffdac1 fg:#ff9aa2)\
+$directory\
+[](bg:#e2f0cb fg:#ffdac1)\
+$git_branch\
+$git_status\
+[](bg:#c7ceea fg:#e2f0cb)\
+$nodejs\
+$rust\
+$python\
+$docker_context\
+$gcloud\
+$time\
+[](fg:#c7ceea)\
+$cmd_duration \
+$character"""
+
+[os]
+disabled = false
+style = "bg:#ff9aa2 fg:#282a36"
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Fedora = ""
+Ubuntu = ""
+Arch = ""
+Linux = ""
+Macos = ""
+
+[username]
+show_always = true
+style_user = "bg:#ff9aa2 fg:#282a36 bold"
+style_root = "bg:#ff9aa2 fg:#d20f39 bold"
+format = "[$user ]($style)"
+
+[directory]
+style = "bg:#ffdac1 fg:#282a36 bold"
+truncation_length = 3
+truncate_to_repo = false
+read_only = " 󰌾"
+home_symbol = "~"
+format = "[ $path ]($style)"
+
+[git_branch]
+symbol = " "
+style = "bg:#e2f0cb fg:#282a36 bold"
+format = "[ $symbol$branch ]($style)"
+
+[git_status]
+style = "bg:#e2f0cb fg:#282a36"
+format = "([$all_status$ahead_behind ]($style))"
+conflicted = "󰓩 "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕ "
+modified = "✎ "
+staged = "✓ "
+untracked = "? "
+
+[nodejs]
+symbol = "󰎙 "
+style = "bg:#c7ceea fg:#282a36"
+format = "[ $symbol$version ]($style)"
+
+[rust]
+symbol = " "
+style = "bg:#c7ceea fg:#282a36"
+format = "[ $symbol$version ]($style)"
+
+[python]
+symbol = " "
+style = "bg:#c7ceea fg:#282a36"
+format = "[ $symbol$version ]($style)"
+
+[docker_context]
+symbol = " "
+style = "bg:#c7ceea fg:#282a36"
+format = "[ $symbol$context ]($style)"
+
+[gcloud]
+symbol = "󱇶 "
+style = "bg:#c7ceea fg:#282a36"
+format = "[ $symbol$project ]($style)"
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:#c7ceea fg:#282a36 bold"
+format = "[  $time ]($style)"
+
+[cmd_duration]
+min_time = 2_000
+style = "fg:#a6adc8 italic"
+format = " took [$duration]($style)"
+
+[character]
+success_symbol = "[❯](bold #c7ceea) "
+error_symbol = "[❯](bold #ff9aa2) "

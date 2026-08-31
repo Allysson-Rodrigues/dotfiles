@@ -1,0 +1,28 @@
+# ==============================================================================
+# Shared Environment Variables (Bash & Zsh Parity)
+# Sourced by both ~/.bashrc and ~/.zshrc for consistent behavior across shells.
+# ==============================================================================
+
+# --- Editors & Runtime ---
+export EDITOR="nano"
+export UV_THREADPOOL_SIZE=4
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# --- Podman (rootless Docker compat) ---
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+
+# --- pnpm ---
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# --- opencode ---
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# --- Google Cloud SDK ---
+export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+# --- Obsidian vault root (governed workspace) ---
+export OBSIDIAN_VAULT_ROOT="$HOME/Documentos/ObsidianVault"

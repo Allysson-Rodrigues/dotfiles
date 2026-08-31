@@ -1,0 +1,14 @@
+[Unit]
+Description=Google Drive mount (rclone)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+ExecStart=%h/.local/bin/rclone mount gdrive: %h/GoogleDrive --vfs-cache-mode full --vfs-cache-max-size 2G --vfs-read-chunk-size 128M --buffer-size 64M --dir-cache-time 72h --poll-interval 1m --volname "Google Drive" --daemon-timeout 30s
+ExecStop=%h/.local/bin/rclone umount %h/GoogleDrive
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

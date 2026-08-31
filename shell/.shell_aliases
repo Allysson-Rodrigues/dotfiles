@@ -1,0 +1,112 @@
+# ==============================================================================
+# Shared Shell Aliases (Bash & Zsh Parity)
+# ==============================================================================
+
+# --- Modern CLI Replacements ---
+if command -v eza &>/dev/null; then
+  alias ls="eza --icons --group-directories-first"
+  alias ll="eza -la --icons --group-directories-first --git"
+  alias la="eza -la --icons --group-directories-first --git"
+  alias tree="eza --tree --icons"
+fi
+
+if command -v bat &>/dev/null; then
+  alias cat="bat --paging=never"
+fi
+
+if command -v rg &>/dev/null; then
+  alias grep="rg"
+fi
+
+
+# Note: zoxide replaces cd natively via 'zoxide init --cmd cd' in shell rc files
+
+# Btrfs Instant Copy-on-Write (CoW) clone
+alias cp-cow="cp --reflink=always -a"
+
+# --- Git Shortcuts ---
+alias gl="git log --oneline --graph --decorate -15"
+alias gs="git status -sb"
+alias ga="git add"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gc="git commit"
+alias gp="git push"
+alias gpl="git pull"
+alias gb="git branch -avv"
+alias gca="git commit --amend --no-edit"
+alias gcf='git -c commit.gpgsign=false commit -m'
+alias grc="git rebase --continue"
+alias gwip='git add -A && git -c commit.gpgsign=false commit -m "wip [skip ci]"'
+alias gunwip='git log -1 --format="%s" | grep -q "wip" && git reset HEAD~1'
+alias glog="git log --oneline --graph --decorate --all -30"
+
+# --- Antigravity CLI Aliases ---
+alias agy-plan="agy --mode plan"
+alias agy-auto="agy --mode accept-edits"
+alias agy-last="agy --continue"
+alias agy-workspace="cd /mnt/dados/Workspace/workspace && agy"
+
+agy-here() {
+  local mode="${1:-plan}"
+  local root
+  root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+  (cd "$root" && agy --mode "$mode")
+}
+
+# --- Workspace Governance & Operations ---
+alias ws="cd /mnt/dados/Workspace/workspace"
+alias ws-health="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-health"
+alias ws-daily="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-daily"
+alias ws-fast="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-fast"
+alias ws-skills="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-skills"
+alias ws-skills-fast="node /mnt/dados/Workspace/workspace/scripts/governance/check-skills-health.mjs"
+alias ws-audit="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-audit"
+alias ws-policy="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-policy"
+alias ws-policy-fast="node /mnt/dados/Workspace/workspace/scripts/governance/check-workspace-policy.mjs"
+alias ws-memory="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-memory"
+
+ws-skill() {
+  local skill_dir="/mnt/dados/Workspace/workspace/.agents/skills"
+  local selected
+  selected=$(find "$skill_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | fzf --preview "bat --style=numbers --color=always $skill_dir/{}/SKILL.md 2>/dev/null || cat $skill_dir/{}/SKILL.md 2>/dev/null" --preview-window=right:60%)
+  if [[ -n "$selected" ]]; then
+    echo "=== Skill: $selected ==="
+    bat "$skill_dir/$selected/SKILL.md" 2>/dev/null || cat "$skill_dir/$selected/SKILL.md"
+  fi
+}
+
+# --- Podman / Containers ---
+alias pps="podman ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
+alias ppsa="podman ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
+alias pimg="podman images --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'"
+alias plogs="podman logs -f"
+alias prun-safe="podman run -d --memory=2g --cpus=2"
+alias pprune="podman system prune --all --force"
+
+# --- Restic Backup ---
+alias restic-snap="restic -r ~/backups-restic snapshots --latest 10"
+alias restic-stats="restic -r ~/backups-restic stats"
+alias restic-check="restic -r ~/backups-restic check"
+
+# --- Markdown & Obsidian Second Brain ---
+alias md="glow -p"
+alias obs="flatpak run md.obsidian.Obsidian &"
+alias vault="cd \$OBSIDIAN_VAULT_ROOT"
+alias vault-lint="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace vault-lint"
+
+obs-inbox() {
+  local title="${1:-thought-$(date +%s)}"
+  local file="$OBSIDIAN_VAULT_ROOT/00-inbox/${title}.md"
+  cat <<EOF > "$file"
+---
+type: inbox
+created: $(date +%Y-%m-%d)
+status: unread
+---
+
+# ${title}
+
+EOF
+  echo "Created inbox note: $file"
+}

@@ -1,0 +1,7 @@
+[Unit]
+Description=Restic daily backup
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/backup-restic.sh
+Environment="HOME=%h"
