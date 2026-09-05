@@ -15,9 +15,20 @@ fi
 restic backup \
   ~/Documentos \
   ~/.config ~/.ssh ~/.zshrc ~/.shell_aliases ~/.shell_env \
+  /mnt/dados/Workspace/workspace \
   --exclude-caches \
   --exclude='*.cache' \
   --exclude='.var' \
+  --exclude='node_modules' \
+  --exclude='.next' \
+  --exclude='.turbo' \
+  --exclude='.tmp' \
+  --exclude='dist' \
+  --exclude='build' \
+  --exclude='target' \
+  --exclude='.venv' \
+  --exclude='__pycache__' \
+  --exclude='04-archives/temp' \
   --tag auto \
   --verbose
 
