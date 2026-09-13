@@ -110,3 +110,21 @@ status: unread
 EOF
   echo "Created inbox note: $file"
 }
+
+# --- ai-memory & Cross-Agent Workstreams ---
+alias aim="ai-memory"
+alias aim-status="ai-memory status"
+alias aim-lint="ai-memory lint"
+alias aim-search="ai-memory search"
+alias aim-handoffs="ai-memory handoffs"
+alias aim-backup="/mnt/dados/Workspace/workspace/scripts/memory-platform/backup-ai-memory.sh"
+alias aim-continue="ai-memory continue"
+alias aim-resume="ai-memory resume"
+alias aim-workstreams="ai-memory workstreams"
+
+aim-run() {
+  local agent="${1:-agy}"
+  shift || true
+  ai-memory run "$agent" "$@"
+}
+

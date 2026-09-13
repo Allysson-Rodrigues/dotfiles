@@ -38,6 +38,14 @@ if command -v starship &>/dev/null; then
   eval "$(starship init bash)"
 fi
 
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init bash --cmd cd)"
+fi
+
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --bash)"
+fi
+
 # Load shared aliases
 if [ -f "$HOME/.shell_aliases" ]; then
   . "$HOME/.shell_aliases"
