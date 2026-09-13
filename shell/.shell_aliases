@@ -4,11 +4,14 @@
 
 # --- Modern CLI Replacements ---
 if command -v eza &>/dev/null; then
-  alias ls="eza --icons --group-directories-first"
-  alias ll="eza -la --icons --group-directories-first --git"
-  alias la="eza -la --icons --group-directories-first --git"
+  alias ls="eza --icons --group-directories-first --hyperlink"
+  alias ll="eza -la --icons --group-directories-first --git --hyperlink"
+  alias la="eza -la --icons --group-directories-first --git --hyperlink"
   alias tree="eza --tree --icons"
 fi
+
+# Universal open (opens files/folders with system default app)
+alias open="xdg-open"
 
 if command -v bat &>/dev/null; then
   alias cat="bat --paging=never"
@@ -108,7 +111,13 @@ alias restic-check="restic -r ~/backups-restic check"
 # --- Markdown & Obsidian Second Brain ---
 alias md="glow -p"
 alias obs="flatpak run md.obsidian.Obsidian &"
-alias apo="flatpak run org.gnome.gitlab.somas.Apostrophe &"
+apo() {
+  if [[ $# -eq 0 ]]; then
+    flatpak run org.gnome.gitlab.somas.Apostrophe >/dev/null 2>&1 &
+  else
+    flatpak run org.gnome.gitlab.somas.Apostrophe "$@" >/dev/null 2>&1 &
+  fi
+}
 alias vault="cd \$OBSIDIAN_VAULT_ROOT"
 alias vault-lint="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" vault-lint"
 
