@@ -108,8 +108,9 @@ alias restic-check="restic -r ~/backups-restic check"
 # --- Markdown & Obsidian Second Brain ---
 alias md="glow -p"
 alias obs="flatpak run md.obsidian.Obsidian &"
+alias apo="flatpak run org.gnome.gitlab.somas.Apostrophe &"
 alias vault="cd \$OBSIDIAN_VAULT_ROOT"
-alias vault-lint="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace vault-lint"
+alias vault-lint="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" vault-lint"
 
 obs-inbox() {
   local title="${1:-thought-$(date +%s)}"
