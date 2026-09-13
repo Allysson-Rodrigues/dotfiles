@@ -51,6 +51,8 @@ alias gsp="git stash pop"
 alias dot="cd ~/dotfiles"
 alias dot-edit="code ~/dotfiles"
 alias dot-sync="~/dotfiles/install.sh"
+alias reload="source ~/.zshrc && echo 'Configurações do shell recarregadas com sucesso!'"
+alias src="source ~/.zshrc"
 
 # --- System Health ---
 alias sys-space="df -h / /mnt/dados 2>/dev/null || df -h /"
