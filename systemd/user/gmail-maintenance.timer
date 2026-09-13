@@ -1,8 +1,8 @@
 [Unit]
-Description=Daily Restic backup timer
+Description=Weekly Gmail Maintenance Timer
 
 [Timer]
-OnCalendar=daily
+OnCalendar=Sun *-*-* 08:00:00
 Persistent=true
 RandomizedDelaySec=1800
 AccuracySec=1h

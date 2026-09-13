@@ -4,7 +4,8 @@
 # ==============================================================================
 
 # --- Editors & Runtime ---
-export EDITOR="nano"
+export EDITOR="${EDITOR:-nano}"
+export VISUAL="code --wait"
 export UV_THREADPOOL_SIZE=4
 export NODE_OPTIONS="--max-old-space-size=4096"
 

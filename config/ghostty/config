@@ -45,7 +45,7 @@ minimum-contrast = 1.0
 quit-after-last-window-closed = true
 
 # --- Scrollback ---
-scrollback-limit = 2000000
+scrollback-limit = 200000
 
 # --- Keybindings ---
 # Window & Tab Management

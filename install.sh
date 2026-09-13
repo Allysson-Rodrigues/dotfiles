@@ -80,6 +80,8 @@ log "Linking systemd user units..."
 link_file "$DOTFILES_DIR/systemd/user/rclone-gdrive.service"   "$HOME/.config/systemd/user/rclone-gdrive.service"
 link_file "$DOTFILES_DIR/systemd/user/restic-backup.service"   "$HOME/.config/systemd/user/restic-backup.service"
 link_file "$DOTFILES_DIR/systemd/user/restic-backup.timer"     "$HOME/.config/systemd/user/restic-backup.timer"
+link_file "$DOTFILES_DIR/systemd/user/gmail-maintenance.service" "$HOME/.config/systemd/user/gmail-maintenance.service"
+link_file "$DOTFILES_DIR/systemd/user/gmail-maintenance.timer"   "$HOME/.config/systemd/user/gmail-maintenance.timer"
 
 # --- Scripts ---
 log "Linking scripts..."

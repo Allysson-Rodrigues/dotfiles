@@ -31,11 +31,32 @@ if [ ! -f "$RESTIC_PASSWORD_FILE" ]; then
   exit 1
 fi
 
-# Backup de diretórios importantes
+# Backup de diretórios e configs importantes
+BACKUP_TARGETS=(
+  "$HOME/Documentos"
+  "$HOME/dotfiles"
+  "$HOME/gmail-organizer"
+  "$HOME/.config"
+  "$HOME/.ssh"
+  "$HOME/.zshrc"
+  "$HOME/.shell_aliases"
+  "$HOME/.shell_env"
+)
+
+# Configurações de agentes de IA
+[[ -d "$HOME/.gemini/config" ]] && BACKUP_TARGETS+=("$HOME/.gemini/config")
+[[ -d "$HOME/.gemini/policies" ]] && BACKUP_TARGETS+=("$HOME/.gemini/policies")
+[[ -f "$HOME/.gemini/settings.json" ]] && BACKUP_TARGETS+=("$HOME/.gemini/settings.json")
+[[ -f "$HOME/.codex/config.toml" ]] && BACKUP_TARGETS+=("$HOME/.codex/config.toml")
+[[ -f "$HOME/.codex/hooks.json" ]] && BACKUP_TARGETS+=("$HOME/.codex/hooks.json")
+
+# Adicionar workspace governado se disponível no host
+if [ -d "/mnt/dados/Workspace/workspace" ]; then
+  BACKUP_TARGETS+=("/mnt/dados/Workspace/workspace")
+fi
+
 restic backup \
-  ~/Documentos \
-  ~/.config ~/.ssh ~/.zshrc ~/.shell_aliases ~/.shell_env \
-  /mnt/dados/Workspace/workspace \
+  "${BACKUP_TARGETS[@]}" \
   --exclude-caches \
   --exclude='*.cache' \
   --exclude='.var' \
@@ -47,7 +68,9 @@ restic backup \
   --exclude='build' \
   --exclude='target' \
   --exclude='.venv' \
+  --exclude='venv' \
   --exclude='__pycache__' \
+  --exclude='*.pyc' \
   --exclude='04-archives/temp' \
   --tag auto \
   --verbose

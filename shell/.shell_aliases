@@ -40,12 +40,28 @@ alias grc="git rebase --continue"
 alias gwip='git add -A && git -c commit.gpgsign=false commit -m "wip [skip ci]"'
 alias gunwip='git log -1 --format="%s" | grep -q "wip" && git reset HEAD~1'
 alias glog="git log --oneline --graph --decorate --all -30"
+alias gss="git stash push -m"
+alias gsl="git stash list"
+alias gsp="git stash pop"
+
+# --- Dotfiles Management ---
+alias dot="cd ~/dotfiles"
+alias dot-edit="code ~/dotfiles"
+alias dot-sync="~/dotfiles/install.sh"
+
+# --- System Health ---
+alias sys-space="df -h / /mnt/dados 2>/dev/null || df -h /"
+alias sys-services="systemctl --user list-units --state=running"
+alias sys-timers="systemctl --user list-timers --all"
+
+# --- Workspace Root (Single Source of Truth) ---
+export WS_ROOT="${WS_ROOT:-/mnt/dados/Workspace/workspace}"
 
 # --- Antigravity CLI Aliases ---
 alias agy-plan="agy --mode plan"
 alias agy-auto="agy --mode accept-edits"
 alias agy-last="agy --continue"
-alias agy-workspace="cd /mnt/dados/Workspace/workspace && agy"
+alias agy-workspace="cd \"$WS_ROOT\" && agy"
 
 agy-here() {
   local mode="${1:-plan}"
@@ -55,21 +71,21 @@ agy-here() {
 }
 
 # --- Workspace Governance & Operations ---
-alias ws="cd /mnt/dados/Workspace/workspace"
-alias ws-health="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-health"
-alias ws-daily="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-daily"
-alias ws-fast="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-fast"
-alias ws-skills="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-skills"
-alias ws-skills-fast="node /mnt/dados/Workspace/workspace/scripts/governance/check-skills-health.mjs"
-alias ws-audit="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-audit"
-alias ws-policy="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-policy"
-alias ws-policy-fast="node /mnt/dados/Workspace/workspace/scripts/governance/check-workspace-policy.mjs"
-alias ws-memory="just -f /mnt/dados/Workspace/workspace/justfile -d /mnt/dados/Workspace/workspace workspace-memory"
+alias ws="cd \"$WS_ROOT\""
+alias ws-health="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-health"
+alias ws-daily="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-daily"
+alias ws-fast="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-fast"
+alias ws-skills="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-skills"
+alias ws-skills-fast="node \"$WS_ROOT/scripts/governance/check-skills-health.mjs\""
+alias ws-audit="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-audit"
+alias ws-policy="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-policy"
+alias ws-policy-fast="node \"$WS_ROOT/scripts/governance/check-workspace-policy.mjs\""
+alias ws-memory="just -f \"$WS_ROOT/justfile\" -d \"$WS_ROOT\" workspace-memory"
 
 ws-skill() {
-  local skill_dir="/mnt/dados/Workspace/workspace/.agents/skills"
+  local skill_dir="$WS_ROOT/.agents/skills"
   local selected
-  selected=$(find "$skill_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | fzf --preview "bat --style=numbers --color=always $skill_dir/{}/SKILL.md 2>/dev/null || cat $skill_dir/{}/SKILL.md 2>/dev/null" --preview-window=right:60%)
+  selected=$(find "$skill_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | fzf --preview "bat --style=numbers --color=always $skill_dir/{}/SKILL.md 2>/dev/null || cat $skill_dir/{}/SKILL.md 2>/dev/null" --preview-window=right:60%)
   if [[ -n "$selected" ]]; then
     echo "=== Skill: $selected ==="
     bat "$skill_dir/$selected/SKILL.md" 2>/dev/null || cat "$skill_dir/$selected/SKILL.md"
@@ -117,7 +133,7 @@ alias aim-status="ai-memory status"
 alias aim-lint="ai-memory lint"
 alias aim-search="ai-memory search"
 alias aim-handoffs="ai-memory handoffs"
-alias aim-backup="/mnt/dados/Workspace/workspace/scripts/memory-platform/backup-ai-memory.sh"
+alias aim-backup="$WS_ROOT/scripts/memory-platform/backup-ai-memory.sh"
 alias aim-continue="ai-memory continue"
 alias aim-resume="ai-memory resume"
 alias aim-workstreams="ai-memory workstreams"

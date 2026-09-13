@@ -74,7 +74,9 @@ fi
 
 
 # --- Integrations ---
-eval "$(zoxide init zsh --cmd cd)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # Google Cloud SDK
 if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then
@@ -87,13 +89,16 @@ fi
 
 # FZF: cached init (regenerates only when fzf binary changes)
 _fzf_cache="$HOME/.cache/fzf-init.zsh"
-if [[ ! -f "$_fzf_cache" || "$(which fzf)" -nt "$_fzf_cache" ]]; then
+_fzf_bin="$(command -v fzf 2>/dev/null)"
+if [[ -n "$_fzf_bin" && ( ! -f "$_fzf_cache" || "$_fzf_bin" -nt "$_fzf_cache" ) ]]; then
   fzf --zsh > "$_fzf_cache" 2>/dev/null
 fi
-source "$_fzf_cache"
+[[ -f "$_fzf_cache" ]] && source "$_fzf_cache"
 
 # --- Prompt ---
-eval "$(starship init zsh)"
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
 
 # --- Plugins ---
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6370,bold"
