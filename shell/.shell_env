@@ -26,3 +26,10 @@ export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 # --- Obsidian vault root (governed workspace) ---
 export OBSIDIAN_VAULT_ROOT="$HOME/Documentos/ObsidianVault"
+
+# --- fnm (Fast Node Manager) ---
+export FNM_PATH="$HOME/.local/share/fnm"
+case ":$PATH:" in
+  *":$FNM_PATH:"*) ;;
+  *) export PATH="$FNM_PATH:$PATH" ;;
+esac

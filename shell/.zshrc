@@ -24,6 +24,7 @@ setopt HIST_EXPIRE_DUPS_FIRST    # Remove oldest duplicates first when hitting 5
 setopt AUTO_CD                   # Typing a directory name navigates into it directly
 
 # --- Completion Otimizado (Cache de 24h para inicialização rápida) ---
+fpath=("$HOME/.local/share/zsh/site-functions" $fpath)
 autoload -Uz compinit
 if [[ -r ~/.zcompdump ]]; then
   compinit -C
@@ -74,7 +75,12 @@ fi
 
 # --- Integrations ---
 eval "$(zoxide init zsh --cmd cd)"
-export PATH="$HOME/.local/share/fnm:$HOME/.fnm:$PATH"
+
+# Google Cloud SDK
+if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
+
 if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
@@ -90,9 +96,15 @@ source "$_fzf_cache"
 eval "$(starship init zsh)"
 
 # --- Plugins ---
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6370,bold"
+
+if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 setopt INTERACTIVE_COMMENTS
 
 # --- PATH deduplication (última palavra) ---

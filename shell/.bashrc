@@ -25,17 +25,12 @@ fi
 unset rc
 
 
-# Added by Antigravity CLI installer
-export PATH="/home/allyssonrodrigues/.local/bin:$PATH"
-
 # Shared environment (Bash & Zsh parity)
 if [ -f "$HOME/.shell_env" ]; then
   . "$HOME/.shell_env"
 fi
 
-FNM_PATH="/home/allyssonrodrigues/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
+if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd --shell bash)"
 fi
 
