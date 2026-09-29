@@ -156,3 +156,16 @@ aim-run() {
   ai-memory run "$agent" "$@"
 }
 
+
+# --- Adicionados em 2026-09-20 (workspace audit) ---
+alias top="btop"
+alias ports="ss -tulnp"
+alias myip="curl -s ifconfig.me && echo"
+alias path='echo "$PATH" | tr ":" "\n" | nl'
+alias now='date "+%Y-%m-%d %H:%M:%S"'
+alias week='date +%V'
+alias cls="printf '\033c'"
+alias mem="free -h"
+alias cpu="grep 'cpu MHz' /proc/cpuinfo | awk '{print \$4}'"
+alias aliases="alias | sort"
+alias zshtime="time zsh -i -c exit"

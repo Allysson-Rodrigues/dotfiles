@@ -51,3 +51,6 @@ if [ -f "$HOME/.shell_aliases" ]; then
   . "$HOME/.shell_aliases"
 fi
 
+
+. "$HOME/.atuin/bin/env"
+eval "$(atuin init bash)"

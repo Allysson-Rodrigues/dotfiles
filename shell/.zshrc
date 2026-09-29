@@ -114,3 +114,7 @@ setopt INTERACTIVE_COMMENTS
 
 # --- PATH deduplication (última palavra) ---
 typeset -U PATH
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

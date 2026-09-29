@@ -34,3 +34,12 @@ case ":$PATH:" in
   *":$FNM_PATH:"*) ;;
   *) export PATH="$FNM_PATH:$PATH" ;;
 esac
+
+# --- Editor (corrigido: nano → code) ---
+export EDITOR="code --wait"
+
+# --- AMD Radeon Vega — ACO shader compiler (melhor performance) ---
+export RADV_PERFTEST=aco
+
+# --- EasyEffects headless (evita restart do daemon) ---
+export GST_PLUGIN_PATH=/usr/lib64/gstreamer-1.0

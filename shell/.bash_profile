@@ -11,3 +11,5 @@ fi
 # Added by Antigravity CLI installer
 export PATH="/home/allyssonrodrigues/.local/bin:$PATH"
 
+
+. "$HOME/.atuin/bin/env"
