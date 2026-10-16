@@ -4,6 +4,8 @@ After=network-online.target
 
 [Service]
 Type=oneshot
+Environment="PYTHONUNBUFFERED=1"
+TimeoutStartSec=300
 ExecStart=/home/allyssonrodrigues/gmail-organizer/run_maintenance.sh
 StandardOutput=journal
 StandardError=journal
