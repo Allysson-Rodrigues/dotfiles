@@ -1,0 +1,10 @@
+[Unit]
+Description=Automated ai-memory snapshot backup
+After=ai-memory.service
+
+[Service]
+Type=oneshot
+ExecStart=/mnt/dados/Workspace/workspace/scripts/memory-platform/backup-ai-memory.sh
+
+[Install]
+WantedBy=default.target

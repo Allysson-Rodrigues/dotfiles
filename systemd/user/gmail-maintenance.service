@@ -1,7 +1,0 @@
-[Unit]
-Description=Weekly Gmail Maintenance & Triage
-
-[Service]
-Type=oneshot
-ExecStart=%h/gmail-organizer/run_maintenance.sh
-Environment="HOME=%h"

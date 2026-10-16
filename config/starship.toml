@@ -99,8 +99,8 @@ style = "bg:#c7ceea fg:#282a36 bold"
 format = "[  $time ]($style)"
 
 [cmd_duration]
-min_time = 2_000
-style = "fg:#a6adc8 italic"
+min_time = 500
+style = "bg:#c7ceea fg:#282a36 bold"
 format = " took [$duration]($style)"
 
 [character]

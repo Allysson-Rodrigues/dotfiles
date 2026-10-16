@@ -1,0 +1,12 @@
+[Unit]
+Description=Gmail Auto-Maintenance and Inbox Zero Service
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/allyssonrodrigues/gmail-organizer/run_maintenance.sh
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

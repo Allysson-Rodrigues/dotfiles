@@ -1,0 +1,9 @@
+[Unit]
+Description=Weekly Gmail Auto-Maintenance Timer
+
+[Timer]
+OnCalendar=Sun *-*-* 23:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

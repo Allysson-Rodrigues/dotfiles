@@ -1,0 +1,15 @@
+[Unit]
+Description=ai-memory server (user service)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/ai-memory --data-dir %h/.local/share/ai-memory --config %h/.config/ai-memory/config.toml serve --transport http --enable-web
+Restart=always
+RestartSec=5s
+Environment="RUST_LOG=info"
+Environment="AI_MEMORY_LLM_PROVIDER=copilot"
+Environment="AI_MEMORY_LLM_MODEL=gpt-4o"
+
+[Install]
+WantedBy=default.target

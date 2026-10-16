@@ -4,13 +4,13 @@
 
 # --- Typography & Rendering ---
 font-family = "JetBrainsMono Nerd Font"
-font-size = 13
+font-size = 13.5
 font-thicken = false
 adjust-cell-height = 8%
-font-feature = calt, liga
+font-feature = calt, liga, ss01, ss02
 
 # --- Window & Appearance ---
-theme = "light:Adwaita,dark:Adwaita Dark"
+theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
 window-padding-x = 12
 window-padding-y = 12
 window-padding-balance = true
@@ -102,3 +102,4 @@ keybind = ctrl+shift+equal=increase_font_size:1
 keybind = ctrl+shift+plus=increase_font_size:1
 keybind = ctrl+shift+minus=decrease_font_size:1
 keybind = ctrl+shift+zero=reset_font_size
+bold-is-bright = true

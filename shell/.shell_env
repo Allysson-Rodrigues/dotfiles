@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # --- Editors & Runtime ---
-export EDITOR="${EDITOR:-nano}"
+export EDITOR="code --wait"
 export VISUAL="code --wait"
 export UV_THREADPOOL_SIZE=4
 export NODE_OPTIONS="--max-old-space-size=4096"
@@ -34,9 +34,6 @@ case ":$PATH:" in
   *":$FNM_PATH:"*) ;;
   *) export PATH="$FNM_PATH:$PATH" ;;
 esac
-
-# --- Editor (corrigido: nano → code) ---
-export EDITOR="code --wait"
 
 # --- AMD Radeon Vega — ACO shader compiler (melhor performance) ---
 export RADV_PERFTEST=aco

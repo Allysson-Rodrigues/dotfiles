@@ -43,10 +43,13 @@ BACKUP_TARGETS=(
   "$HOME/.shell_env"
 )
 
-# Configurações de agentes de IA
+# Configurações e dados persistentes de agentes de IA
+[[ -d "$HOME/.local/share/ai-memory" ]] && BACKUP_TARGETS+=("$HOME/.local/share/ai-memory")
+[[ -f "$HOME/.ai-memory.toml" ]] && BACKUP_TARGETS+=("$HOME/.ai-memory.toml")
 [[ -d "$HOME/.gemini/config" ]] && BACKUP_TARGETS+=("$HOME/.gemini/config")
 [[ -d "$HOME/.gemini/policies" ]] && BACKUP_TARGETS+=("$HOME/.gemini/policies")
 [[ -f "$HOME/.gemini/settings.json" ]] && BACKUP_TARGETS+=("$HOME/.gemini/settings.json")
+[[ -f "$HOME/.gemini/antigravity-cli/settings.json" ]] && BACKUP_TARGETS+=("$HOME/.gemini/antigravity-cli/settings.json")
 [[ -f "$HOME/.codex/config.toml" ]] && BACKUP_TARGETS+=("$HOME/.codex/config.toml")
 [[ -f "$HOME/.codex/hooks.json" ]] && BACKUP_TARGETS+=("$HOME/.codex/hooks.json")
 
@@ -72,6 +75,8 @@ restic backup \
   --exclude='__pycache__' \
   --exclude='*.pyc' \
   --exclude='04-archives/temp' \
+  --exclude="$HOME/.local/share/ai-memory/models" \
+  --exclude="$HOME/.local/share/ai-memory/hook-spool" \
   --tag auto \
   --verbose
 
