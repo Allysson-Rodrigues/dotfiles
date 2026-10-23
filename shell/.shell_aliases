@@ -68,7 +68,7 @@ agy() {
   local rc=$?
   rm -f "$HOME"/.local/bin/agy.*.old 2>/dev/null || true
   if command -v ai-memory >/dev/null 2>&1; then
-    (ai-memory finalize-session --agent antigravity-cli >/dev/null 2>&1 || true) &
+    (ai-memory finalize-session --agent antigravity-cli --all >/dev/null 2>&1 || true) &
   fi
   return $rc
 }
