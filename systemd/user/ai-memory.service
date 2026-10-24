@@ -8,8 +8,8 @@ ExecStart=%h/.local/bin/ai-memory --data-dir %h/.local/share/ai-memory --config 
 Restart=always
 RestartSec=5s
 Environment="RUST_LOG=info"
-Environment="AI_MEMORY_LLM_PROVIDER=copilot"
-Environment="AI_MEMORY_LLM_MODEL=gpt-4o"
+Environment="AI_MEMORY_LLM_PROVIDER=codex"
+Environment="AI_MEMORY_LLM_MODEL=gpt-6-luna"
 
 [Install]
 WantedBy=default.target
